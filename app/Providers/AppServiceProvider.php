@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Dingo\Api\Provider\LumenServiceProvider;
+use Gousto\Providers\GoustoServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->register(LumenServiceProvider::class);
+        $this->app->register(GoustoServiceProvider::class);
     }
 }
