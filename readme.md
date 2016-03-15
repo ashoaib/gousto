@@ -1,5 +1,4 @@
 ## Gousto API Test
-
 This is an API to provide recipes and ratings, based on the [Gousto](http://www.gousto.co.uk) API Test requirements document. It is built using PHP and the Lumen framework.
 
 ### Prerequisites
@@ -16,3 +15,7 @@ This is an API to provide recipes and ratings, based on the [Gousto](http://www.
 ```
 composer install
 ```
+
+### Usage
+- Use your favourite REST client (or `curl`)
+- All API requests and responses detailed [here](https://htmlpreview.github.io/?https://github.com/ashoaib/gousto/blob/master/docs/html/gousto-api.html)
