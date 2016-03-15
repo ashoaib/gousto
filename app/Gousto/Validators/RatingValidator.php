@@ -13,6 +13,6 @@ class RatingValidator extends GoustoValidator
      */
     protected static $rules = [
         'recipe_id' => 'required|numeric',
-        'rating' => 'required|numeric',
+        'rating' => 'required|numeric|min:1|max:5',
     ];
 }
