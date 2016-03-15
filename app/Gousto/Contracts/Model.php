@@ -30,14 +30,17 @@ interface Model
     public function findBy(array $criteria);
 
     /**
-     * @param $data
-     *
-     * @return array
+     * @param array $data
      */
-    //public function create($data);
+    public function create(array $data);
+
+    /**
+     * @param array $data
+     */
+    public function update(array $data);
 
     /**
      * @return array
      */
-    //public function save();
+    public function save();
 }

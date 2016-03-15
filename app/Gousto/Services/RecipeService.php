@@ -28,6 +28,7 @@ class RecipeService
      * RecipeService constructor.
      *
      * @param Repository $repository
+     * @param Validatable $validator
      */
     public function __construct(Repository $repository, Validatable $validator)
     {
@@ -62,6 +63,58 @@ class RecipeService
     {
         try {
             return $this->repository->find($id);
+        } catch (RecipeNotFoundException $rnf) {
+            throw new NotFoundHttpException($rnf->getMessage());
+        }
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function createRecipe(array $data)
+    {
+        if ($this->validator->validate($data)) {
+            return $this->repository->create($this->validator->getNulledData());
+        } else {
+            throw new BadRequestHttpException($this->validator->errors());
+        }
+    }
+
+    /**
+     * @param $id
+     * @param array $data
+     *
+     * @return array
+     */
+    public function updateRecipe($id, array $data)
+    {
+        try {
+            if ($this->validator->validate($data)) {
+                return $this->repository->update($id, $this->validator->getNulledData());
+            } else {
+                throw new BadRequestHttpException($this->validator->errors());
+            }
+        } catch (RecipeNotFoundException $rnf) {
+            throw new NotFoundHttpException($rnf->getMessage());
+        }
+    }
+
+    /**
+     * @param $id
+     * @param array $data
+     *
+     * @return array
+     */
+    public function updatePartialRecipe($id, array $data)
+    {
+        try {
+            if ($this->validator->validate($data)) {
+                return $this->repository->update($id, $this->validator->getData());
+            } else {
+                throw new BadRequestHttpException($this->validator->errors());
+            }
         } catch (RecipeNotFoundException $rnf) {
             throw new NotFoundHttpException($rnf->getMessage());
         }

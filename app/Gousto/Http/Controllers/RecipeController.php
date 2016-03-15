@@ -2,6 +2,7 @@
 
 namespace Gousto\Http\Controllers;
 
+use Dingo\Api\Http\Response;
 use Gousto\Contracts\Transformable;
 use Gousto\Services\RecipeService;
 use Dingo\Api\Http\Request;
@@ -42,7 +43,12 @@ class RecipeController extends BaseController
      */
     public function index(Request $request)
     {
-        return $this->response()->array($this->paginate($this->service->getAllRecipes($request->except(self::$reserved)), ...array_values($request->only(self::$reserved))));
+        return $this->response()->array(
+            $this->paginate(
+                $this->service->getAllRecipes($request->except(self::$reserved)),
+                ...array_values($request->only(self::$reserved))
+            )
+        );
     }
 
     /**
@@ -54,5 +60,39 @@ class RecipeController extends BaseController
     public function show(Request $request, $id)
     {
         return $this->response()->array($this->service->getRecipeById($id));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function store(Request $request)
+    {
+        return $this->response()->array(
+            $this->service->createRecipe($request->json()->all())
+        )->setStatusCode(Response::HTTP_CREATED);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        return $this->response()->array($this->service->updateRecipe($id, $request->json()->all()));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function patch(Request $request, $id)
+    {
+        return $this->response()->array($this->service->updatePartialRecipe($id, $request->json()->all()));
     }
 }

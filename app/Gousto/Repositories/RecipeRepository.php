@@ -55,4 +55,24 @@ class RecipeRepository implements Repository
     {
         return $this->model->findBy($criteria);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function create(array $data)
+    {
+        $this->model->create($data);
+        return $this->model->save();
+    }
+
+    public function update($id, array $data)
+    {
+        try {
+            $this->model->find($id);
+            $this->model->update($data);
+            return $this->model->save();
+        } catch (ModelNotFoundException $mnf) {
+            throw new RecipeNotFoundException("Recipe $id does not exist.");
+        }
+    }
 }

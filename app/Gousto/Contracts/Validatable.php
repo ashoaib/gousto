@@ -11,7 +11,7 @@ interface Validatable
     /**
      * @param $data
      *
-     * @return mixed
+     * @return boolean
      */
     public function validate($data);
 
@@ -19,4 +19,14 @@ interface Validatable
      * @return mixed
      */
     public function errors();
+
+    /**
+     * @return array
+     */
+    public function getData();
+
+    /**
+     * @return array
+     */
+    public function getNulledData();
 }

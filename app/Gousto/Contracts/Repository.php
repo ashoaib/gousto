@@ -20,7 +20,7 @@ interface Repository
      *
      * @return array
      */
-    //public function create(array $data);
+    public function create(array $data);
 
     /**
      * @param $id
@@ -28,7 +28,7 @@ interface Repository
      *
      * @return array
      */
-    //public function update($id, array $data);
+    public function update($id, array $data);
 
     /**
      * @param $id
