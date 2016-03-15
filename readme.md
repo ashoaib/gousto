@@ -19,3 +19,17 @@ composer install
 ### Usage
 - Use your favourite REST client (or `curl`)
 - All API requests and responses detailed [here](https://htmlpreview.github.io/?https://github.com/ashoaib/gousto/blob/master/docs/html/gousto-api.html)
+
+### Notes
+- Lumen was chosen as the framework due to:
+  - Familiarity
+  - Easy to bootstrap
+  - Suitable for RESTful APIs
+  - Performance as a micro-framework
+- API built with extendability in mind
+  - Most components bound to interfaces and dependency injected
+  - Trivial to swap/add new components
+  - Adhering to SOLID principles
+- Different API consumers can take advantage of dependency injectable transformers
+  - Allows different API responses with different data based on context of request (e.g. from web or mobile)
+- Some shortcuts taken (e.g. in the `JsonModel` or `RatingService`) to work around lack of proper database engine 
