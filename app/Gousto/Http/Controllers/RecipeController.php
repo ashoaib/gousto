@@ -6,7 +6,6 @@ use Dingo\Api\Http\Response;
 use Gousto\Contracts\Transformable;
 use Gousto\Services\RecipeService;
 use Dingo\Api\Http\Request;
-use Gousto\Transformers\RecipeTransformer;
 
 /**
  * Class RecipeController

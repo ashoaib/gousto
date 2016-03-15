@@ -4,14 +4,14 @@ namespace Gousto\Repositories;
 
 use Gousto\Contracts\Model;
 use Gousto\Contracts\Repository;
-use Gousto\Exceptions\RecipeNotFoundException;
+use Gousto\Exceptions\RatingNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Class RecipeRepository
+ * Class RatingRepository
  * @package Gousto\Repositories
  */
-class RecipeRepository implements Repository
+class RatingRepository implements Repository
 {
     /**
      * @var Model
@@ -19,7 +19,7 @@ class RecipeRepository implements Repository
     protected $model;
 
     /**
-     * RecipeRepository constructor.
+     * RatingRepository constructor.
      *
      * @param Model $model
      */
@@ -44,7 +44,7 @@ class RecipeRepository implements Repository
         try {
             return $this->model->find($id);
         } catch (ModelNotFoundException $mnf) {
-            throw new RecipeNotFoundException("Recipe $id does not exist.");
+            throw new RatingNotFoundException("Rating $id does not exist.");
         }
     }
 
@@ -75,7 +75,7 @@ class RecipeRepository implements Repository
             $this->model->update($data);
             return $this->model->save();
         } catch (ModelNotFoundException $mnf) {
-            throw new RecipeNotFoundException("Recipe $id does not exist.");
+            throw new RatingNotFoundException("Rating $id does not exist.");
         }
     }
 }

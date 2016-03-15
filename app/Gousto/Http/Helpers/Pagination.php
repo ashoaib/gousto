@@ -67,6 +67,7 @@ trait Pagination
             'page' => $this->page,
             'limit' => $this->limit,
             'total_pages' => $this->total_pages,
+            'total_items' => count($items)
         ];
     }
 }

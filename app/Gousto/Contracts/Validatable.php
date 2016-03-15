@@ -29,4 +29,10 @@ interface Validatable
      * @return array
      */
     public function getNulledData();
+
+    /**
+     * @param $field
+     * @param $value
+     */
+    public function addRule($field, $value);
 }

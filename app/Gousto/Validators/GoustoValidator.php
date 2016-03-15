@@ -78,6 +78,15 @@ class GoustoValidator implements Validatable
     }
 
     /**
+     * @param $field
+     * @param $rule
+     */
+    public function addRule($field, $rule)
+    {
+        static::$rules[$field] = $rule;
+    }
+
+    /**
      * @param $data
      */
     protected function intersectData($data)

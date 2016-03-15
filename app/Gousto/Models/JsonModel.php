@@ -14,15 +14,15 @@ use Illuminate\Support\Collection;
  */
 class JsonModel implements Model
 {
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
-    const INCREMENT = 'increment';
-    const INDEXES = 'indexes';
+    const TABLE_DATA = 'data';
+    const TABLE_INDEXES = 'indexes';
+    const TABLE_INCREMENT = 'increment';
 
-    /**
-     * @var string
-     */
-    protected static $table;
+    const FIELD_ID = 'id';
+    const FIELD_CREATED_AT = 'created_at';
+    const FIELD_UPDATED_AT = 'updated_at';
+
+    const TIMESTAMP_FORMAT = 'd/m/Y H:i:s';
 
     /**
      * @var string
@@ -30,14 +30,29 @@ class JsonModel implements Model
     protected $data_file_path;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $raw;
+    protected static $table;
 
     /**
      * @var array
      */
     protected $data;
+
+    /**
+     * @var array
+     */
+    protected $indexes;
+
+    /**
+     * @var int
+     */
+    protected $increment;
+
+    /**
+     * @var array
+     */
+    protected $table_data;
 
     /**
      * @var int
@@ -71,8 +86,10 @@ class JsonModel implements Model
             if (!empty(static::$table)) {
                 $json = json_decode($data, true);
                 if (array_key_exists(static::$table, $json)) {
-                    $this->raw = $json[static::$table];
-                    $this->data = $this->raw['data'];
+                    $this->data = $json[static::$table][self::TABLE_DATA];
+                    $this->indexes = $json[static::$table][self::TABLE_INDEXES];
+                    $this->increment = $json[static::$table][self::TABLE_INCREMENT];
+                    $this->setTableData($this->data, $this->indexes, $this->increment);
                 } else {
                     throw new ModelNotFoundException;
                 }
@@ -82,6 +99,32 @@ class JsonModel implements Model
         } catch (ModelNotFoundException $me) {
             $this->data = new Collection();
         }
+    }
+
+    /**
+     * @param array $data
+     * @param array $indexes
+     * @param int $increment
+     */
+    protected function setTableData($data, $indexes, $increment)
+    {
+        $this->table_data = [
+            self::TABLE_DATA => $data,
+            self::TABLE_INDEXES => $indexes,
+            self::TABLE_INCREMENT => $increment,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getTableData()
+    {
+        return [
+            self::TABLE_DATA => $this->data,
+            self::TABLE_INDEXES => $this->indexes,
+            self::TABLE_INCREMENT => $this->increment,
+        ];
     }
 
     /**
@@ -118,8 +161,8 @@ class JsonModel implements Model
         $results = [];
 
         foreach ($criteria as $cr_key => $cr_value) {
-            if (array_key_exists($cr_key, $this->raw[self::INDEXES]) && array_key_exists($cr_value, $this->raw[self::INDEXES][$cr_key])) {
-                $results = array_merge($results, $this->raw[self::INDEXES][$cr_key][$cr_value]);
+            if (array_key_exists($cr_key, $this->table_data[self::TABLE_INDEXES]) && array_key_exists($cr_value, $this->table_data[self::TABLE_INDEXES][$cr_key])) {
+                $results = array_merge($results, $this->table_data[self::TABLE_INDEXES][$cr_key][$cr_value]);
             }
         }
 
@@ -141,10 +184,10 @@ class JsonModel implements Model
      */
     public function create(array $data)
     {
-        $this->id = $this->raw[self::INCREMENT] + 1;
+        $this->id = $this->table_data[self::TABLE_INCREMENT] + 1;
         $this->model_data = array_merge(
             [
-                'id' => $this->id,
+                self::FIELD_ID => $this->id,
             ],
             $this->timestamps(),
             $data
@@ -165,9 +208,9 @@ class JsonModel implements Model
      */
     public function save()
     {
-        $this->data[$this->id] = $this->model_data;
-        $this->updateIncrement();
+        $this->updateData();
         $this->updateIndexes();
+        $this->updateIncrement();
         $this->saveData();
         return $this->data[$this->id];
     }
@@ -177,20 +220,20 @@ class JsonModel implements Model
      */
     protected function timestamps()
     {
-        $now = date('d/m/Y H:i:s');
+        $now = date(self::TIMESTAMP_FORMAT);
 
         return [
-            self::CREATED_AT => array_key_exists($this->id, $this->data) ? $this->data[$this->id][self::CREATED_AT] : $now,
-            self::UPDATED_AT => $now
+            self::FIELD_CREATED_AT => array_key_exists($this->id, $this->data) ? $this->data[$this->id][self::FIELD_CREATED_AT] : $now,
+            self::FIELD_UPDATED_AT => $now
         ];
     }
 
     /**
-     * Update increment of id if current id is greater.
+     * Sets the data for the model to the table
      */
-    protected function updateIncrement()
+    protected function updateData()
     {
-        $this->raw[self::INCREMENT] = ($this->id > $this->raw[self::INCREMENT]) ? $this->id : $this->raw[self::INCREMENT];
+        $this->data[$this->id] = $this->model_data;
     }
 
     /**
@@ -200,7 +243,7 @@ class JsonModel implements Model
     {
         $indexes = [];
 
-        foreach ($this->raw[self::INDEXES] as $index => $values) {
+        foreach ($this->indexes as $index => $values) {
             foreach ($this->data as $id => $data) {
                 if (array_key_exists($index, $data) && !empty($data[$index])) {
                     $indexes[$index][$data[$index]][] = $id;
@@ -208,7 +251,15 @@ class JsonModel implements Model
             }
         }
 
-        $this->raw[self::INDEXES] = $indexes;
+        $this->indexes = $indexes;
+    }
+
+    /**
+     * Update increment of id if current id is greater.
+     */
+    protected function updateIncrement()
+    {
+        $this->increment = ($this->id > $this->increment) ? $this->id : $this->increment;
     }
 
     /**
@@ -216,9 +267,8 @@ class JsonModel implements Model
      */
     protected function saveData()
     {
-        $this->raw['data'][$this->id] = $this->model_data;
         $contents = json_encode([
-            static::$table => $this->raw
+            static::$table => $this->getTableData()
         ]);
 
         if (!Storage::put($this->data_file_path, $contents)) {

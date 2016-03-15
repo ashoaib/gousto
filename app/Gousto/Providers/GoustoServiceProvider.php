@@ -2,6 +2,10 @@
 
 namespace Gousto\Providers;
 
+use Gousto\Models\Rating;
+use Gousto\Repositories\RatingRepository;
+use Gousto\Services\RatingService;
+use Gousto\Validators\RatingValidator;
 use Illuminate\Support\ServiceProvider;
 use Gousto\Repositories\RecipeRepository;
 use Gousto\Models\Recipe;
@@ -52,6 +56,14 @@ class GoustoServiceProvider extends ServiceProvider
                 $app[RecipeValidator::class]
             );
         });
+
+        $this->app->bind(RatingService::class, function ($app) {
+            return new RatingService(
+                $app[RatingRepository::class],
+                $app[RatingValidator::class],
+                $app[RecipeService::class]
+            );
+        });
     }
 
     /**
@@ -62,6 +74,12 @@ class GoustoServiceProvider extends ServiceProvider
         $this->app->bind(RecipeRepository::class, function ($app) {
             return new RecipeRepository(
                 $app[Recipe::class]
+            );
+        });
+
+        $this->app->bind(RatingRepository::class, function ($app) {
+            return new RatingRepository(
+                $app[Rating::class]
             );
         });
     }

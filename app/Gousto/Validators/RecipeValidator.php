@@ -35,5 +35,6 @@ class RecipeValidator extends GoustoValidator
         'recipe_cuisine' => 'string',
         'in_your_box' => 'string',
         'gousto_reference' => 'integer',
+        'average_rating' => 'numeric',
     ];
 }
