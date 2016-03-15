@@ -2,16 +2,18 @@ FORMAT: 1A
 
 # Gousto Recipe API PoC
 
-# Recipes [/api/v1/recipes]
+# Group Recipes
+
 The recipe resource.
 
-## Show all recipes, optionally filtered by cuisine. [GET /api/v1/recipes]
-
+## Show all recipes [/api/v1/recipes?recipe_cuisine=asian&page=1&limit=5]
 
 + Parameters
     + recipe_cuisine (string, optional) - The name of cuisine to filter on
     + page (integer, optional) - Page number for pagination
     + limit (integer, optional) - Number of results per page
+
+### Get Recipes [GET]
 
 + Response 200 (application/json)
     + Body
@@ -51,6 +53,3 @@ The recipe resource.
                 "total_pages": null,
                 "total_items": 1
             }
-
-# GoustoHttpControllersRatingController
-Class RatingController
