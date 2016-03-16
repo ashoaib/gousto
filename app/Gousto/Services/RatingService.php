@@ -76,16 +76,25 @@ class RatingService
      */
     protected function updateAverageRating($recipe_id, array $data)
     {
+        $this->recipe_service->updatePartialRecipe($recipe_id, [
+            'average_rating' => $this->calculateAverageRating(array_merge($this->getAllRatings($recipe_id)->all(), [$data]))
+        ]);
+    }
+
+    /**
+     * @param array $ratings
+     *
+     * @return float
+     */
+    protected function calculateAverageRating(array $ratings)
+    {
         $average_rating = 0;
-        $ratings = array_merge($this->getAllRatings($recipe_id)->all(), [$data]);
 
         foreach ($ratings as $rating) {
             $rating = (array) $rating;
             $average_rating += $rating['rating'];
         }
 
-        $this->recipe_service->updatePartialRecipe($recipe_id, [
-            'average_rating' => ($average_rating / count($ratings))
-        ]);
+        return $average_rating / count($ratings);
     }
 }

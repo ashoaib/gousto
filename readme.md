@@ -17,8 +17,11 @@ composer install
 ```
 
 ### Usage
-- Use your favourite REST client (or `curl`)
-- All API requests and responses detailed [here](https://htmlpreview.github.io/?https://github.com/ashoaib/gousto/blob/master/docs/html/gousto-api.html)
+- Use your favourite REST client (or `curl`) – [full API specifications](https://htmlpreview.github.io/?https://github.com/ashoaib/gousto/blob/master/docs/html/gousto-api.html)
+- To enable debug mode and see detailed error messages, update the `.env` file with
+```
+API_DEBUG=true
+```
 
 ### Notes
 - Lumen was chosen as the framework due to:
