@@ -1,7 +1,6 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "ashoaib/gousto",
+    "description": "Gousto API PoC",
     "license": "MIT",
     "type": "project",
     "require": {
