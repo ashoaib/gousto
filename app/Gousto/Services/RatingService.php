@@ -90,11 +90,16 @@ class RatingService
     {
         $average_rating = 0;
 
-        foreach ($ratings as $rating) {
-            $rating = (array) $rating;
-            $average_rating += $rating['rating'];
+        if (count($ratings) > 0) {
+            $total = 0;
+            foreach ($ratings as $rating) {
+                $rating = (array) $rating;
+                $total += $rating['rating'];
+            }
+
+            $average_rating = $total / count($ratings);
         }
 
-        return $average_rating / count($ratings);
+        return $average_rating;
     }
 }

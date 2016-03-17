@@ -30,7 +30,10 @@ class RatingController extends BaseController
     public function index(Request $request, $recipe_id)
     {
         return $this->response()->array(
-            $this->paginate($this->service->getAllRatings($recipe_id))
+            $this->paginate(
+                $this->service->getAllRatings($recipe_id),
+                ...array_values($request->only(self::$reserved))
+            )
         );
     }
 

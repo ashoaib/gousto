@@ -32,7 +32,7 @@ class JsonModel implements Model
     /**
      * @var string
      */
-    protected static $table;
+    protected $table;
 
     /**
      * @var array
@@ -69,26 +69,26 @@ class JsonModel implements Model
      */
     public function __construct()
     {
-        $this->data_file_path = env('DATASTORE') . static::$table . '.json';
+        $this->data_file_path = env('DATASTORE') . $this->table . '.json';
         if (Storage::exists($this->data_file_path)) {
             $this->loadData(Storage::get($this->data_file_path));
         } else {
-            throw new DatastoreConnectionException('Unable to use ' . static::$table . ' data store');
+            throw new DatastoreConnectionException('Unable to use ' . $this->table . ' data store');
         }
     }
 
     /**
      * @param $data
      */
-    protected function loadData($data)
+    public function loadData($data)
     {
         try {
-            if (!empty(static::$table)) {
+            if (!empty($this->table)) {
                 $json = json_decode($data, true);
-                if (array_key_exists(static::$table, $json)) {
-                    $this->data = $json[static::$table][self::TABLE_DATA];
-                    $this->indexes = $json[static::$table][self::TABLE_INDEXES];
-                    $this->increment = $json[static::$table][self::TABLE_INCREMENT];
+                if (array_key_exists($this->table, $json)) {
+                    $this->data = $json[$this->table][self::TABLE_DATA];
+                    $this->indexes = $json[$this->table][self::TABLE_INDEXES];
+                    $this->increment = $json[$this->table][self::TABLE_INCREMENT];
                     $this->setTableData($this->data, $this->indexes, $this->increment);
                 } else {
                     throw new ModelNotFoundException;
@@ -102,11 +102,27 @@ class JsonModel implements Model
     }
 
     /**
+     * @param $table
+     */
+    public function setTable($table)
+    {
+        $this->table = $table;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
+
+    /**
      * @param array $data
      * @param array $indexes
      * @param int $increment
      */
-    protected function setTableData($data, $indexes, $increment)
+    public function setTableData($data, $indexes, $increment)
     {
         $this->table_data = [
             self::TABLE_DATA => $data,
@@ -118,7 +134,7 @@ class JsonModel implements Model
     /**
      * @return array
      */
-    protected function getTableData()
+    public function getTableData()
     {
         return [
             self::TABLE_DATA => $this->data,
@@ -268,7 +284,7 @@ class JsonModel implements Model
     protected function saveData()
     {
         $contents = json_encode([
-            static::$table => $this->getTableData()
+            $this->table => $this->getTableData()
         ]);
 
         if (!Storage::put($this->data_file_path, $contents)) {

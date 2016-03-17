@@ -14,17 +14,22 @@ trait Pagination
     /**
      * @var int
      */
-    protected $page;
+    protected $page = null;
 
     /**
      * @var int
      */
-    protected $limit;
+    protected $limit = null;
 
     /**
      * @var int
      */
-    protected $total_pages;
+    protected $total_pages = null;
+
+    /**
+     * @var int
+     */
+    protected $total_items = null;
 
     /**
      * @var array
@@ -41,14 +46,15 @@ trait Pagination
      *
      * @return array
      */
-    protected function paginate(Collection $items, $page = null, $limit = null)
+    public function paginate(Collection $items, $page = null, $limit = null)
     {
         $items = $items->all();
+        $this->total_items = count($items);
 
         if (!empty($page) && !empty($limit) && $page >= 0 && $limit >= 0) {
             $this->page = (int) $page;
             $this->limit = (int) $limit;
-            $this->total_pages = ceil(count($items) / $this->limit);
+            $this->total_pages = (int) ceil($this->total_items / $this->limit);
             $items = array_slice($items, ($page - 1) * $limit, $limit);
         }
 
@@ -67,7 +73,7 @@ trait Pagination
             'page' => $this->page,
             'limit' => $this->limit,
             'total_pages' => $this->total_pages,
-            'total_items' => count($items)
+            'total_items' => $this->total_items
         ];
     }
 }

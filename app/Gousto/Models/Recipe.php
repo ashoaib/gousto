@@ -13,5 +13,5 @@ class Recipe extends Base
     /**
      * @var string
      */
-    protected static $table = 'recipes';
+    protected $table = 'recipes';
 }

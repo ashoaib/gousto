@@ -22,6 +22,28 @@ composer install
 ```
 API_DEBUG=true
 ```
+#### Root namespace
+```
+Gousto\
+```
+#### Code path
+```
+app/Gousto
+```
+
+### Tests
+- To run tests, navigate to repo root and run
+```
+./vendor/bin/phpunit
+```
+#### All tests
+```
+tests/Gousto
+```
+#### Acceptance tests
+```
+tests/Gousto/Acceptance
+```
 
 ### Notes
 - Lumen was chosen as the framework due to:

@@ -22,6 +22,9 @@
         }
     },
     "autoload-dev": {
+        "psr-4": {
+            "Gousto\\Tests\\": "tests/Gousto/Tests"
+        },
         "classmap": [
             "tests/",
             "database/"

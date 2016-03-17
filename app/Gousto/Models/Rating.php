@@ -13,5 +13,5 @@ class Rating extends Base
     /**
      * @var string
      */
-    protected static $table = 'ratings';
+    protected $table = 'ratings';
 }
