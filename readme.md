@@ -32,17 +32,22 @@ app/Gousto
 ```
 
 ### Tests
-- To run tests, navigate to repo root and run
+- To run tests, navigate to repo root
+  - For unit tests, run:
+  ```
+  ./vendor/bin/phpunit --testsuite gousto-unit
+  ```
+  - For acceptance tests, run:
+  ```
+  ./vendor/bin/phpunit --testsuite gousto-acceptance
+  ```
+#### Unit tests
 ```
-./vendor/bin/phpunit
-```
-#### All tests
-```
-tests/Gousto
+tests/Gousto/Unit/Tests
 ```
 #### Acceptance tests
 ```
-tests/Gousto/Acceptance
+tests/Gousto/Acceptance/Tests
 ```
 
 ### Notes

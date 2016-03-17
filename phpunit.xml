@@ -10,8 +10,11 @@
          stopOnFailure="false"
          syntaxCheck="false">
     <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./tests/</directory>
+        <testsuite name="gousto-unit">
+            <directory>./tests/Gousto/Unit</directory>
+        </testsuite>
+        <testsuite name="gousto-acceptance">
+            <directory>./tests/Gousto/Acceptance</directory>
         </testsuite>
     </testsuites>
     <filter>

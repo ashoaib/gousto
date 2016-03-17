@@ -1,6 +1,6 @@
 <?php
 
-namespace Gousto\Tests\Services;
+namespace Gousto\Unit\Tests\Services;
 
 use Gousto\Contracts\Repository;
 use Gousto\Repositories\RatingRepository;

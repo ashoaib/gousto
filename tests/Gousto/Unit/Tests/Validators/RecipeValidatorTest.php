@@ -1,6 +1,6 @@
 <?php
 
-namespace Gousto\Tests\Validators;
+namespace Gousto\Unit\Tests\Validators;
 
 use Gousto\Contracts\Validatable;
 use Gousto\Validators\RecipeValidator;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gousto\Tests\Http\Helpers;
+namespace Gousto\Unit\Tests\Http\Helpers;
 
 use Gousto\Http\Helpers\Pagination;
 use Illuminate\Support\Collection;

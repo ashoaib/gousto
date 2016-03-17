@@ -1,6 +1,6 @@
 <?php
 
-namespace Gousto\Tests\Models;
+namespace Gousto\Unit\Tests\Models;
 
 use Gousto\Models\JsonModel;
 use Illuminate\Support\Collection;
