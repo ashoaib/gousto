@@ -41,6 +41,7 @@ app/Gousto
   ```
   ./vendor/bin/phpunit --testsuite gousto-acceptance
   ```
+
 #### Unit tests
 ```
 tests/Gousto/Unit/Tests
