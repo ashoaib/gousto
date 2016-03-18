@@ -35,11 +35,11 @@ app/Gousto
 - To run tests, navigate to repo root
   - For unit tests, run:
   ```
-  ./vendor/bin/phpunit --configuration gousto-unit.xml 
+  ./vendor/bin/phpunit -c gousto-unit.xml 
   ```
   - For acceptance tests, run:
   ```
-  ./vendor/bin/phpunit --configuration gousto-acceptance.xml 
+  ./vendor/bin/phpunit -c gousto-acceptance.xml 
   ```
 
 #### Unit tests
