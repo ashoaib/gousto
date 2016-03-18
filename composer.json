@@ -5,7 +5,7 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/lumen-framework": "5.2.*",
+        "laravel/lumen-framework": "5.2.x-dev#96e69924c58d86d42013be7c4d613cbfe43fb4db",
         "vlucas/phpdotenv": "~2.2",
         "dingo/api": "1.0.x@dev",
         "league/flysystem": " ~1.0"

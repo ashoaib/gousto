@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "78f3b5e0e3102aec2a129c3db054f828",
-    "content-hash": "cfa4c1ba99f5dc83b07696b5f2c95dfa",
+    "hash": "420a993b6288bf5c78e4c7e93b3b4dfd",
+    "content-hash": "c935d39289d8555a1e9e25fb7ea33356",
     "packages": [
         {
             "name": "dingo/api",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dingo/api.git",
-                "reference": "de7bbb4d64777b6cdb7800eab178db867165c3e0"
+                "reference": "70d27464541d247a30fefb28a01800298ce409da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dingo/api/zipball/de7bbb4d64777b6cdb7800eab178db867165c3e0",
-                "reference": "de7bbb4d64777b6cdb7800eab178db867165c3e0",
+                "url": "https://api.github.com/repos/dingo/api/zipball/70d27464541d247a30fefb28a01800298ce409da",
+                "reference": "70d27464541d247a30fefb28a01800298ce409da",
                 "shasum": ""
             },
             "require": {
@@ -81,7 +81,7 @@
                 "laravel",
                 "restful"
             ],
-            "time": "2016-03-17 13:38:24"
+            "time": "2016-03-18 06:11:11"
         },
         {
             "name": "dingo/blueprint",
@@ -1443,16 +1443,16 @@
         },
         {
             "name": "laravel/lumen-framework",
-            "version": "v5.2.5",
+            "version": "5.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/lumen-framework.git",
-                "reference": "01bafdbef52c5ecc072b668da70808d55a4bbf41"
+                "reference": "96e69924c58d86d42013be7c4d613cbfe43fb4db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/lumen-framework/zipball/01bafdbef52c5ecc072b668da70808d55a4bbf41",
-                "reference": "01bafdbef52c5ecc072b668da70808d55a4bbf41",
+                "url": "https://api.github.com/repos/laravel/lumen-framework/zipball/3861fe5bb249b119e8257e00d3b8d51340069750",
+                "reference": "96e69924c58d86d42013be7c4d613cbfe43fb4db",
                 "shasum": ""
             },
             "require": {
@@ -1523,7 +1523,7 @@
                 "laravel",
                 "lumen"
             ],
-            "time": "2016-02-12 15:02:34"
+            "time": "2016-02-14 04:05:57"
         },
         {
             "name": "league/flysystem",
@@ -3746,6 +3746,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "laravel/lumen-framework": 20,
         "dingo/api": 20
     },
     "prefer-stable": false,

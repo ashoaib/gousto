@@ -29,7 +29,7 @@ class GoustoServiceProvider extends ServiceProvider
     {
         $routes_file = __DIR__ . '/../Http/routes.php';
         if (file_exists($routes_file)) {
-            require_once $routes_file;
+            require $routes_file;
         }
     }
 
