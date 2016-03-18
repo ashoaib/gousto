@@ -58,7 +58,7 @@ tests/Gousto/Acceptance/Tests
   - Suitable for RESTful APIs
   - Performance as a micro-framework
 - API built with extendability in mind
-  - Most components bound to interfaces and dependency injected
+  - Most components bound to interfaces and dependency injected for loose coupling
   - Trivial to swap/add new components
   - Adhering to SOLID principles
 - Different API consumers can take advantage of dependency injectable transformers
